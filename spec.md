@@ -1,25 +1,24 @@
 
 ## 1. Describe the Problem
 
-As a user
-So that I can find my tasks among all my notes
+> As a user\
+So that I can find my tasks among all my notes\
 I want to check if a line from my notes includes the string `#TODO`.
 
 ## 2. Design the Function Signature
 
-_Include the name of the function, its parameters, return value, and side effects._
-
 ```python
 # EXAMPLE
 
-def extract_uppercase(mixed_words):
-    """Extracts uppercase words from a string
+def includes_todo(line):
+    """Extracts lines containing the string `#TODO`
 
     Parameters: (list all parameters and their types)
-        mixed_words: a string containing words (e.g. "hello WORLD")
+        line: a string type
 
     Returns: (state the return value and its type)
-        a list of strings, each one a word (e.g. ["WORLD"])
+        True if a line contains `#TODO`
+        False if a line does not contain `#TODO`
 
     Side effects: (state any side effects)
         This function doesn't print anything or have any other side-effects
@@ -29,74 +28,52 @@ def extract_uppercase(mixed_words):
 
 ## 3. Create Examples as Tests
 
-_Make a list of examples of what the function will take and return._
-
 ```python
 # EXAMPLE
 
 """
-Given a lower and an uppercase word
-It returns a list with the uppercase word
+Test is a line does not contain `#TODO`
+Expected output should be False
 """
-extract_uppercase("hello WORLD") => ["WORLD"]
+line_example = includes_todo("Buy groceries")
+line_eample == False
 
 """
-Given two uppercase words
-It returns a list with both words
+Test if a line starts with `#TODO`
+Expected output should be True
 """
-extract_uppercase("HELLO WORLD") => ["HELLO", "WORLD"]
+line_example = includes_todo("#TODO Buy groceries")
+line_eample == True
 
 """
-Given two lowercase words
-It returns an empty list
+Test if a line ends with `#TODO`
+Expected output should be True
 """
-extract_uppercase("hello world") => []
+line_example = includes_todo("Buy groceries #TODO")
+line_eample == True
 
-"""
-Given a lower and a mixed case word
-It returns an empty list
-"""
-extract_uppercase("hello WoRLD") => []
 
 """
-Given a lowercase word and an uppercase word with an exclamation mark
-It returns a list with the uppercase word, no exclamation mark
+Test with a line containing #TODO with punctuation - e.g. #TODO:
+Expected output should be True
 """
-extract_uppercase("hello WORLD!") => ["WORLD"]
 
-"""
-Given an empty string
-It returns an empty list
-"""
-extract_uppercase("") => []
+line_example = includes_todo("#TODO: Buy groceries")
+line_eample == True
 
 """
-Given a None value
-It throws an error
+Test with lower case #todo
+Expected output should be True
 """
-extract_uppercase(None) throws an error
-```
-
-_Encode each example as a test. You can add to the above list as you go._
-
-## 4. Implement the Behaviour
-
-_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
-
-Here's an example for you to start with:
-
-```python
-# EXAMPLE
-
-from lib.extract_uppercase import *
+line_example = includes_todo("#todo: Buy groceries")
+line_eample == True
 
 """
-Given a lower and an uppercase word
-It returns a list with the uppercase word
+Test withouth the hash symbol - e.g. TODO
+Expected output should be False
 """
-def test_extract_uppercase_with_upper_then_lower():
-    result = extract_uppercase("hello WORLD")
-    assert result == ["WORLD"]
-```
 
-Ensure all test function names are unique, otherwise pytest will ignore them!
+line_example = includes_todo("TODO Buy groceries")
+line_eample == False
+
+
